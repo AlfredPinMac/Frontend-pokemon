@@ -88,59 +88,91 @@
       </div>
     </div>
 
-    <!-- JWT Token Modal -->
-    <div v-if="showTokenModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-xl w-full p-6 shadow-2xl relative animate-in fade-in zoom-in duration-200">
-        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-          <div class="flex items-center gap-2">
-            <span class="p-2 rounded-lg bg-amber-500/10 text-amber-400 border border-amber-500/20">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
-              </svg>
-            </span>
-            <div>
-              <h3 class="text-base font-bold text-slate-100">JWT Token Activo en Pinia</h3>
-              <p class="text-xs text-slate-400">Inyectado en cada request mediante Axios interceptor</p>
+    <!-- JWT Token Modal (Teleported to body for proper overlay and centering) -->
+    <Teleport to="body">
+      <div 
+        v-if="showTokenModal" 
+        @click.self="showTokenModal = false"
+        class="fixed inset-0 bg-black/80 backdrop-blur-md z-[9999] flex items-center justify-center p-4 overflow-y-auto"
+      >
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl max-w-xl w-full p-6 shadow-2xl relative my-8 animate-in fade-in zoom-in duration-200">
+          <!-- Modal Header -->
+          <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+            <div class="flex items-center gap-3">
+              <span class="p-2.5 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                </svg>
+              </span>
+              <div>
+                <h3 class="text-base font-bold text-slate-100">JWT Token Activo en Pinia</h3>
+                <p class="text-xs text-slate-400">Inyectado en cada request mediante el interceptor de Axios</p>
+              </div>
             </div>
-          </div>
-          <button @click="showTokenModal = false" class="text-slate-400 hover:text-slate-200 p-1">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-
-        <div class="mt-4 space-y-3">
-          <div>
-            <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Encabezado HTTP</label>
-            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-xs font-mono text-emerald-400 select-all">
-              Authorization: Bearer {{ authStore.token }}
-            </div>
-          </div>
-
-          <div>
-            <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1">Raw JWT Token</label>
-            <textarea 
-              readonly 
-              rows="4" 
-              class="w-full bg-slate-950 p-2.5 rounded-lg border border-slate-800 text-xs font-mono text-amber-300 resize-none select-all focus:outline-none"
-              :value="authStore.token"
-            ></textarea>
-          </div>
-
-          <div class="flex items-center justify-between pt-2">
-            <span class="text-xs text-slate-500 font-mono">Usuario: {{ authStore.username }}</span>
-            <button
-              @click="copyToken"
-              class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium flex items-center gap-1.5 transition-colors"
+            <button 
+              type="button"
+              @click="showTokenModal = false" 
+              class="text-slate-400 hover:text-slate-100 p-2 rounded-lg hover:bg-slate-800 transition-colors"
+              title="Cerrar modal"
             >
-              <span v-if="copied">✓ Copiado al portapapeles</span>
-              <span v-else>Copiar Token</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
+          </div>
+
+          <!-- Modal Body -->
+          <div class="mt-4 space-y-4">
+            <div>
+              <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1 font-mono">
+                Encabezado HTTP Authorization
+              </label>
+              <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs font-mono text-emerald-400 break-all select-all">
+                Authorization: Bearer {{ authStore.token }}
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1 font-mono">
+                Raw Token (JWT)
+              </label>
+              <textarea 
+                readonly 
+                rows="4" 
+                class="w-full bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs font-mono text-amber-300 resize-none select-all focus:outline-none"
+                :value="authStore.token"
+              ></textarea>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-between pt-3 border-t border-slate-800/80">
+              <span class="text-xs text-slate-400 font-mono">
+                Usuario activo: <strong class="text-slate-200 capitalize">{{ authStore.username }}</strong>
+              </span>
+
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  @click="copyToken"
+                  class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors border border-slate-700"
+                >
+                  <span v-if="copied" class="text-emerald-400 font-bold">✓ Copiado</span>
+                  <span v-else>Copiar Token</span>
+                </button>
+
+                <button
+                  type="button"
+                  @click="showTokenModal = false"
+                  class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-colors shadow-sm"
+                >
+                  Cerrar
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Teleport>
   </header>
 </template>
 
