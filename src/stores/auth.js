@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', () => {
       })
 
       const data = response.data
-      console.log(`%c[LDAP AUTH SUCCESS] Received JWT from LDAP API:`, 'color: #10b981; font-weight: bold;', data.access_token)
+      console.log(`%c[LDAP AUTH SUCCESS] Autenticación completada exitosamente`, 'color: #10b981; font-weight: bold;')
 
       // Save token and user into state
       token.value = data.access_token

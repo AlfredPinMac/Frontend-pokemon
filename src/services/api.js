@@ -20,13 +20,12 @@ apiClient.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
       
-      // Prominent console.log for demonstration video and debugging
+      // Log request without exposing sensitive JWT token in console
       console.group(`🚀 [HTTP REQUEST] ${config.method?.toUpperCase()} ${config.baseURL}${config.url}`)
       console.log(
-        `%c🔑 [JWT INJECTED VIA PINIA] Authorization: Bearer ${token}`,
+        `%c🔑 [JWT INJECTED VIA PINIA] Authorization: Bearer [PROTECTED]`,
         'color: #10b981; font-weight: bold; background: #064e3b; padding: 3px 6px; border-radius: 4px;'
       )
-      console.log('📌 Headers:', config.headers)
       if (config.data) {
         console.log('📦 Body Data:', config.data)
       }

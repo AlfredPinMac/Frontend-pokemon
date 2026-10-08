@@ -2,6 +2,7 @@ node_modules
 dist
 dist-ssr
 *.local
+!jail.local
 .npm
 .DS_Store
 .env.local
