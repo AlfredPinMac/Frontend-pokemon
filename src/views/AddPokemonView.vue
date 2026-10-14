@@ -12,7 +12,7 @@
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
-          <span>Volver al Dashboard</span>
+          <span>Back to Dashboard</span>
         </router-link>
 
         <span class="px-2.5 py-1 rounded-full bg-slate-900 border border-slate-800 text-[11px] font-mono text-emerald-400">
@@ -29,17 +29,17 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
             </span>
-            Dar de Alta Nuevo Pokémon
+            Register New Pokémon
           </h1>
           <p class="text-xs text-slate-400 mt-1">
-            Completa el formulario para registrar un Pokémon. La petición enviará el Bearer Token generado en LDAP.
+            Complete the form to register a Pokémon. The request will include the Bearer Token generated via LDAP.
           </p>
         </div>
 
         <!-- Quick Presets Picker -->
         <div class="mb-6 p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80">
           <p class="text-xs font-bold text-amber-400 mb-2 font-mono flex items-center gap-1.5">
-            <span>⚡ Plantillas Rápidas (Click para autocompletar):</span>
+            <span>⚡ Quick Presets (Click to autocomplete):</span>
           </p>
           <div class="flex flex-wrap gap-2">
             <button
@@ -67,13 +67,13 @@
             <div class="space-y-4">
               <div>
                 <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-mono">
-                  Nombre del Pokémon *
+                  Pokémon Name *
                 </label>
                 <input
                   v-model="form.name"
                   type="text"
                   required
-                  placeholder="ej. Dragonite"
+                  placeholder="e.g. Dragonite"
                   class="w-full bg-slate-950 border border-slate-700/80 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 transition-all"
                 />
               </div>
@@ -81,7 +81,7 @@
               <div class="grid grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-mono">
-                    Tipo Principal *
+                    Primary Type *
                   </label>
                   <select
                     v-model="form.type1"
@@ -94,13 +94,13 @@
 
                 <div>
                   <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-mono">
-                    Tipo Secundario
+                    Secondary Type
                   </label>
                   <select
                     v-model="form.type2"
                     class="w-full bg-slate-950 border border-slate-700/80 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl px-3 py-2.5 text-sm text-slate-100 transition-all"
                   >
-                    <option :value="null">Ninguno</option>
+                    <option :value="null">None</option>
                     <option v-for="t in pokemonTypes" :key="t" :value="t">{{ t }}</option>
                   </select>
                 </div>
@@ -108,7 +108,7 @@
 
               <div>
                 <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-mono">
-                  URL de Imagen / Sprite
+                  Image URL / Sprite *
                 </label>
                 <input
                   v-model="form.image_url"
@@ -121,12 +121,12 @@
 
               <div>
                 <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-1 font-mono">
-                  Descripción
+                  Description
                 </label>
                 <textarea
                   v-model="form.description"
                   rows="3"
-                  placeholder="Describe las habilidades o características del Pokémon..."
+                  placeholder="Describe the characteristics or abilities of this Pokémon..."
                   class="w-full bg-slate-950 border border-slate-700/80 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl px-4 py-2.5 text-sm text-slate-100 placeholder-slate-500 transition-all resize-none"
                 ></textarea>
               </div>
@@ -136,14 +136,14 @@
             <div class="space-y-4">
               <!-- Live Preview Card -->
               <div class="bg-slate-950/90 rounded-2xl border border-slate-800 p-4 text-center flex flex-col items-center justify-center min-h-[160px]">
-                <span class="text-[10px] font-mono text-slate-500 uppercase mb-2">Vista Previa</span>
+                <span class="text-[10px] font-mono text-slate-500 uppercase mb-2">Live Preview</span>
                 <img
                   :src="form.image_url || 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png'"
                   :alt="form.name || 'Preview'"
                   class="w-28 h-28 object-contain filter drop-shadow-md"
                   @error="handleImageError"
                 />
-                <span class="text-sm font-bold text-slate-200 mt-2">{{ form.name || 'Nombre Pokémon' }}</span>
+                <span class="text-sm font-bold text-slate-200 mt-2">{{ form.name || 'Pokémon Name' }}</span>
                 <div class="flex items-center gap-1.5 mt-1">
                   <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">{{ form.type1 }}</span>
                   <span v-if="form.type2" class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">{{ form.type2 }}</span>
@@ -154,7 +154,7 @@
               <div class="space-y-3 bg-slate-950/60 p-4 rounded-2xl border border-slate-800/80 text-xs">
                 <div>
                   <div class="flex justify-between font-mono mb-1">
-                    <span class="text-emerald-400 font-bold">HP (Salud):</span>
+                    <span class="text-emerald-400 font-bold">HP (Health):</span>
                     <span class="text-slate-300 font-bold">{{ form.hp }}</span>
                   </div>
                   <input type="range" v-model.number="form.hp" min="10" max="250" class="w-full accent-emerald-500 cursor-pointer" />
@@ -162,7 +162,7 @@
 
                 <div>
                   <div class="flex justify-between font-mono mb-1">
-                    <span class="text-red-400 font-bold">Ataque:</span>
+                    <span class="text-red-400 font-bold">Attack:</span>
                     <span class="text-slate-300 font-bold">{{ form.attack }}</span>
                   </div>
                   <input type="range" v-model.number="form.attack" min="10" max="250" class="w-full accent-red-500 cursor-pointer" />
@@ -170,7 +170,7 @@
 
                 <div>
                   <div class="flex justify-between font-mono mb-1">
-                    <span class="text-blue-400 font-bold">Defensa:</span>
+                    <span class="text-blue-400 font-bold">Defense:</span>
                     <span class="text-slate-300 font-bold">{{ form.defense }}</span>
                   </div>
                   <input type="range" v-model.number="form.defense" min="10" max="250" class="w-full accent-blue-500 cursor-pointer" />
@@ -178,7 +178,7 @@
 
                 <div>
                   <div class="flex justify-between font-mono mb-1">
-                    <span class="text-amber-400 font-bold">Velocidad:</span>
+                    <span class="text-amber-400 font-bold">Speed:</span>
                     <span class="text-slate-300 font-bold">{{ form.speed }}</span>
                   </div>
                   <input type="range" v-model.number="form.speed" min="10" max="250" class="w-full accent-amber-500 cursor-pointer" />
@@ -193,7 +193,7 @@
               to="/dashboard"
               class="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors"
             >
-              Cancelar
+              Cancel
             </router-link>
 
             <button
@@ -205,7 +205,7 @@
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              <span>{{ submitting ? 'Guardando con JWT...' : 'Guardar Pokémon (POST)' }}</span>
+              <span>{{ submitting ? 'Saving with JWT...' : 'Save Pokémon (POST)' }}</span>
             </button>
           </div>
         </form>
@@ -240,7 +240,7 @@ const presets = [
     defense: 90,
     speed: 95,
     image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png',
-    description: 'Se dice que ha vivido durante cientos de millones de años en la capa de ozono de la Tierra sin bajar jamás.'
+    description: 'It is said to have lived for hundreds of millions of years in the ozone layer without ever descending.'
   },
   {
     name: 'Gengar',
@@ -251,7 +251,7 @@ const presets = [
     defense: 60,
     speed: 110,
     image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png',
-    description: 'En una noche de luna llena, si a tu sombra le da por reírse y moverse sola, es culpa de Gengar.'
+    description: 'On the night of a full moon, if shadows move and laugh, it must be Gengar’s doing.'
   },
   {
     name: 'Dragonite',
@@ -262,7 +262,7 @@ const presets = [
     defense: 95,
     speed: 80,
     image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/149.png',
-    description: 'Es capaz de dar la vuelta al mundo en tan solo dieciséis horas. Es un Pokémon bondadoso que rescata a los náufragos.'
+    description: 'It can circle the globe in just sixteen hours. It is a kindhearted Pokémon that leads lost ships to safety.'
   },
   {
     name: 'Gyarados',
@@ -273,7 +273,7 @@ const presets = [
     defense: 79,
     speed: 81,
     image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/130.png',
-    description: 'Tiene un carácter tremendamente violento. Los rayos hiperrayo que lanza por la boca lo destruyen todo.'
+    description: 'It has an extremely aggressive nature. The Hyper Beam it shoots from its mouth incinerates all targets.'
   },
   {
     name: 'Snorlax',
@@ -284,7 +284,7 @@ const presets = [
     defense: 65,
     speed: 30,
     image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/143.png',
-    description: 'Su estómago es tan fuerte que sus jugos digestivos pueden disolver cualquier tipo de veneno.'
+    description: 'Its stomach is so strong that its digestive juices can dissolve any kind of poison.'
   }
 ]
 
@@ -297,7 +297,7 @@ const form = reactive({
   defense: 90,
   speed: 95,
   image_url: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/384.png',
-  description: 'Se dice que ha vivido durante cientos de millones de años en la capa de ozono de la Tierra.'
+  description: 'It is said to have lived for hundreds of millions of years in the ozone layer.'
 })
 
 function applyPreset(p) {
@@ -338,11 +338,10 @@ async function handleSubmit() {
     const response = await apiClient.post('/api/pokemons', payload)
     console.log('%c[ADD POKEMON SUCCESS] Pokémon created:', 'color: #4ade80; font-weight: bold;', response.data)
 
-    // Redirect to dashboard where the newly added pokemon will appear
     router.push('/dashboard')
   } catch (err) {
     console.error('[ADD POKEMON ERROR]', err)
-    errorMessage.value = err.response?.data?.detail || err.message || 'Error al guardar el Pokémon'
+    errorMessage.value = err.response?.data?.detail || err.message || 'Error saving Pokémon'
   } finally {
     submitting.value = false
   }

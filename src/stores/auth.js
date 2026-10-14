@@ -14,7 +14,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   // Getters
   const isAuthenticated = computed(() => !!token.value)
-  const username = computed(() => user.value?.username || 'Invitado')
+  const username = computed(() => user.value?.username || 'Guest')
   const userDn = computed(() => user.value?.dn || '')
 
   // Actions
@@ -35,7 +35,7 @@ export const useAuthStore = defineStore('auth', () => {
       })
 
       const data = response.data
-      console.log(`%c[LDAP AUTH SUCCESS] Autenticación completada exitosamente`, 'color: #10b981; font-weight: bold;')
+      console.log(`%c[LDAP AUTH SUCCESS] Authentication completed successfully`, 'color: #10b981; font-weight: bold;')
 
       // Save token and user into state
       token.value = data.access_token
@@ -52,7 +52,7 @@ export const useAuthStore = defineStore('auth', () => {
       return { success: true, data }
     } catch (err) {
       console.error('[LDAP AUTH ERROR]', err)
-      const message = err.response?.data?.detail || 'Error al autenticarse en el servidor LDAP'
+      const message = err.response?.data?.detail || 'Error authenticating with LDAP server'
       error.value = message
       return { success: false, error: message }
     } finally {

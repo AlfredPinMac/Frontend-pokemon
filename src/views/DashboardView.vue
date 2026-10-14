@@ -12,15 +12,15 @@
             <div class="flex items-center gap-2 mb-1">
               <span class="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                JWT Activo & Inyectado
+                JWT Active & Injected
               </span>
-              <span class="text-xs text-slate-400 font-mono">Sesión iniciada como: <strong class="text-slate-200 capitalize">{{ authStore.username }}</strong></span>
+              <span class="text-xs text-slate-400 font-mono">Logged in as: <strong class="text-slate-200 capitalize">{{ authStore.username }}</strong></span>
             </div>
             <h1 class="text-2xl sm:text-3xl font-black text-slate-100">
-              Pokédex Centralizada
+              Centralized Pokédex
             </h1>
             <p class="text-xs sm:text-sm text-slate-400 mt-1 max-w-xl">
-              Listado protegido por Bearer Token. Cada petición realizada por Axios inyecta automáticamente el JWT obtenido del servicio LDAP.
+              Protected by Bearer Token. Every request made via Axios automatically injects the JWT retrieved from the LDAP service.
             </p>
           </div>
 
@@ -29,12 +29,12 @@
               @click="fetchPokemons"
               :disabled="loading"
               class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold border border-slate-700 flex items-center gap-2 transition-colors disabled:opacity-50"
-              title="Refrescar listado (envía GET /api/pokemons con Bearer Token)"
+              title="Refresh list (sends GET /api/pokemons with Bearer Token)"
             >
               <svg class="w-4 h-4" :class="{ 'animate-spin': loading }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
               </svg>
-              <span>Recargar GET</span>
+              <span>Reload GET</span>
             </button>
 
             <router-link
@@ -44,7 +44,7 @@
               <svg class="w-4 h-4 group-hover:rotate-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
               </svg>
-              <span>+ Nuevo Pokémon</span>
+              <span>+ New Pokémon</span>
             </router-link>
           </div>
         </div>
@@ -58,7 +58,7 @@
             </span>
           </div>
           <span class="text-[11px] text-slate-500">
-            💡 Revisa la consola del navegador <span class="text-slate-300 font-bold">(F12 -> Console)</span> para ver los logs detallados del JWT en cada request.
+            💡 Check browser developer tools <span class="text-slate-300 font-bold">(F12 -> Console)</span> to view detailed JWT logs on every request.
           </span>
         </div>
       </div>
@@ -75,7 +75,7 @@
           <input
             v-model="searchQuery"
             type="text"
-            placeholder="Buscar por nombre o tipo..."
+            placeholder="Search by name or type..."
             class="w-full bg-slate-950/80 border border-slate-800 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl pl-9 pr-4 py-2 text-xs text-slate-100 placeholder-slate-500 transition-all"
           />
         </div>
@@ -89,7 +89,7 @@
             class="px-3 py-1 rounded-lg text-xs font-semibold capitalize whitespace-nowrap transition-colors border"
             :class="selectedType === t ? 'bg-red-500 text-white border-red-400 shadow-sm' : 'bg-slate-950/60 text-slate-400 hover:text-slate-200 border-slate-800 hover:border-slate-700'"
           >
-            {{ t === 'all' ? 'Todos' : t }}
+            {{ t === 'all' ? 'All' : t }}
           </button>
         </div>
       </div>
@@ -97,7 +97,7 @@
       <!-- Loading State -->
       <div v-if="loading && pokemons.length === 0" class="py-24 text-center space-y-4">
         <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-slate-800 border-t-red-500"></div>
-        <p class="text-sm font-mono text-slate-400">Consultando Backend con Bearer JWT...</p>
+        <p class="text-sm font-mono text-slate-400">Querying Backend with Bearer JWT...</p>
       </div>
 
       <!-- Error State -->
@@ -107,13 +107,13 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
         </div>
-        <h3 class="text-base font-bold text-red-400">Error al obtener Pokémones</h3>
+        <h3 class="text-base font-bold text-red-400">Error Fetching Pokémon List</h3>
         <p class="text-xs text-slate-300 font-mono">{{ error }}</p>
         <button
           @click="fetchPokemons"
           class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold shadow transition-colors"
         >
-          Reintentar Solicitud
+          Retry Request
         </button>
       </div>
 
@@ -124,13 +124,13 @@
           alt="Empty Pokeball" 
           class="w-16 h-16 opacity-30 mx-auto mb-3"
         />
-        <h3 class="text-base font-bold text-slate-300">No se encontraron Pokémones</h3>
-        <p class="text-xs text-slate-500 mt-1">Prueba con otro término de búsqueda o agrega uno nuevo.</p>
+        <h3 class="text-base font-bold text-slate-300">No Pokémon Found</h3>
+        <p class="text-xs text-slate-500 mt-1">Try another search term or register a new one.</p>
         <router-link
           to="/pokemons/create"
           class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-xl bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 text-red-400 text-xs font-bold transition-colors"
         >
-          + Dar de alta un Pokémon
+          + Register a Pokémon
         </router-link>
       </div>
 
@@ -189,14 +189,14 @@ async function fetchPokemons() {
     console.log(`%c[DASHBOARD] Successfully loaded ${pokemons.value.length} pokemons!`, 'color: #4ade80; font-weight: bold;')
   } catch (err) {
     console.error('[DASHBOARD ERROR] Failed to fetch pokemons:', err)
-    error.value = err.response?.data?.detail || err.message || 'Error al conectar con el backend'
+    error.value = err.response?.data?.detail || err.message || 'Error connecting to backend'
   } finally {
     loading.value = false
   }
 }
 
 async function handleDelete(id) {
-  if (!confirm('¿Estás seguro de que deseas eliminar este Pokémon?')) return
+  if (!confirm('Are you sure you want to delete this Pokémon?')) return
 
   try {
     console.log(`%c[DELETE ACTION] Deleting pokemon #${id} with Bearer JWT...`, 'color: #f87171; font-weight: bold;')
@@ -204,7 +204,7 @@ async function handleDelete(id) {
     pokemons.value = pokemons.value.filter((p) => p.id !== id)
     console.log(`%c[DELETE SUCCESS] Pokemon #${id} deleted.`, 'color: #4ade80;')
   } catch (err) {
-    alert('Error al eliminar: ' + (err.response?.data?.detail || err.message))
+    alert('Deletion error: ' + (err.response?.data?.detail || err.message))
   }
 }
 

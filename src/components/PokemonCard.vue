@@ -46,7 +46,7 @@
         {{ pokemon.name }}
       </h3>
       <p class="text-xs text-slate-400 mt-1 line-clamp-2 leading-relaxed">
-        {{ pokemon.description || 'Sin descripción disponible.' }}
+        {{ pokemon.description || 'No description available.' }}
       </p>
 
       <!-- Stats Grid -->
@@ -94,11 +94,11 @@
 
       <!-- Footer Info & Delete -->
       <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between text-[10px] text-slate-500 font-mono">
-        <span>Por: <span class="text-slate-400">{{ pokemon.created_by || 'system' }}</span></span>
+        <span>By: <span class="text-slate-400">{{ pokemon.created_by || 'system' }}</span></span>
         
         <button
           @click="$emit('delete', pokemon.id)"
-          title="Eliminar Pokémon"
+          title="Delete Pokémon"
           class="text-slate-500 hover:text-red-400 p-1 rounded hover:bg-red-500/10 transition-colors"
         >
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

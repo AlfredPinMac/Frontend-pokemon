@@ -58,7 +58,7 @@ apiClient.interceptors.response.use(
     // If 401 Unauthorized, automatically log out
     if (error.response && error.response.status === 401) {
       const authStore = useAuthStore()
-      console.warn('⚠️ Token inválido o expirado. Cerrando sesión...')
+      console.warn('⚠️ Invalid or expired token. Logging out...')
       authStore.logout()
       window.location.href = '/login'
     }

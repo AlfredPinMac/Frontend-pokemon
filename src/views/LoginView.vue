@@ -18,7 +18,7 @@
           PokéDashboard
         </h1>
         <p class="text-xs text-slate-400 mt-2 font-mono">
-          Autenticación LDAP &nbsp;•&nbsp; JWT Injection &nbsp;•&nbsp; Pinia
+          LDAP Authentication &nbsp;•&nbsp; JWT Injection &nbsp;•&nbsp; Pinia
         </p>
       </div>
 
@@ -26,8 +26,8 @@
       <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-8 shadow-2xl backdrop-blur-xl">
         <div class="mb-6 pb-4 border-b border-slate-800 flex items-center justify-between">
           <div>
-            <h2 class="text-lg font-bold text-slate-100">Iniciar Sesión</h2>
-            <p class="text-xs text-slate-400 mt-0.5">Ingresa tus credenciales del directorio LDAP</p>
+            <h2 class="text-lg font-bold text-slate-100">Sign In</h2>
+            <p class="text-xs text-slate-400 mt-0.5">Enter your LDAP directory credentials</p>
           </div>
           <span class="px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-mono flex items-center gap-1.5">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -44,7 +44,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
           </svg>
           <div>
-            <p class="font-bold text-red-400">Error de Autenticación</p>
+            <p class="font-bold text-red-400">Authentication Error</p>
             <p class="mt-0.5">{{ errorMessage }}</p>
           </div>
         </div>
@@ -53,7 +53,7 @@
         <form @submit.prevent="handleSubmit" class="space-y-4">
           <div>
             <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">
-              Usuario LDAP (UID)
+              LDAP Username (UID)
             </label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
@@ -65,7 +65,7 @@
                 v-model="username"
                 type="text"
                 required
-                placeholder="ej. alice"
+                placeholder="e.g. alice"
                 class="w-full bg-slate-950/80 border border-slate-700/80 focus:border-red-500 focus:ring-1 focus:ring-red-500 rounded-xl pl-10 pr-4 py-3 text-sm text-slate-100 placeholder-slate-500 transition-all"
               />
             </div>
@@ -73,7 +73,7 @@
 
           <div>
             <label class="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">
-              Contraseña
+              Password
             </label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-500">
@@ -105,8 +105,8 @@
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
               <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
-            <span v-if="!authStore.loading">Iniciar Sesión con LDAP</span>
-            <span v-else>Autenticando en LDAP...</span>
+            <span v-if="!authStore.loading">Sign In with LDAP</span>
+            <span v-else>Authenticating with LDAP...</span>
             <svg v-if="!authStore.loading" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
@@ -116,7 +116,7 @@
         <!-- Quick Demo Accounts -->
         <div class="mt-8 pt-6 border-t border-slate-800">
           <p class="text-[11px] font-mono text-slate-400 uppercase tracking-wider mb-3 text-center">
-            Credenciales de prueba (LDAP Lab)
+            Demo Credentials (LDAP Lab)
           </p>
           <div class="grid grid-cols-2 gap-2.5">
             <button
@@ -173,7 +173,7 @@ async function handleSubmit() {
   if (result.success) {
     router.push('/dashboard')
   } else {
-    errorMessage.value = result.error || 'Credenciales incorrectas o error en el servidor LDAP'
+    errorMessage.value = result.error || 'Invalid credentials or LDAP server error'
   }
 }
 </script>

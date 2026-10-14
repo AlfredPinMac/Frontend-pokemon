@@ -1,41 +1,49 @@
 # PokéDashboard Frontend (Vue.js + Pinia + JWT)
 
-Aplicación Web Frontend desarrollada con **Vue 3**, **Vite**, **Pinia** y **Tailwind CSS** para la gestión de un catálogo de Pokémones con autenticación centralizada **LDAP** e inyección automática de **JWT** como Bearer Token en todas las peticiones HTTP.
+Frontend web application built with **Vue 3**, **Vite**, **Pinia**, and **Tailwind CSS** for managing a Pokémon catalog with centralized **LDAP** authentication and automatic **JWT** injection as a Bearer Token on all HTTP requests.
 
-## Características
+## Features
 
-- 🔐 **Autenticación Centralizada LDAP**: Pantalla de Login conectada al API de LDAP (`http://localhost:8000/login`).
-- 🗄️ **Gestión de Estado con Pinia**: El JWT retornado por el API se almacena en un store de Pinia y se persiste en `localStorage`.
-- 💉 **Inyección Automática de Bearer Token**: Interceptor de Axios (`src/services/api.js`) que inyecta `Authorization: Bearer <JWT>` en cada petición saliente.
-- 📜 **Logs Detallados en Consola**: Cada petición imprime en consola (`console.group` / `console.log`) el método HTTP, URL, encabezados y el Bearer Token para facilitar la demostración en video.
-- 🛡️ **Navigation Guards**: Protección de rutas (`/dashboard`, `/pokemons/create`) que redirigen a `/login` si el usuario no cuenta con un token activo.
-- ⚡ **Dashboard Dinámico**: Listado de Pokémones con tarjetas interactivas, filtros por tipo, barra de búsqueda y estadísticas.
-- ➕ **Alta de Pokémones**: Formulario interactivo con plantillas rápidas y vista previa en tiempo real. Los nuevos elementos se reflejan inmediatamente en el Dashboard tras el `POST /api/pokemons`.
+- 🔐 **Centralized LDAP Authentication**: Login screen integrated with the LDAP API (`http://localhost:8000/login`).
+- 🗄️ **State Management with Pinia**: The JWT returned by the authentication API is stored in Pinia and persisted to `localStorage`.
+- 💉 **Automatic Bearer Token Injection**: Axios request interceptor (`src/services/api.js`) automatically appends `Authorization: Bearer <JWT>` to every outgoing request.
+- 🛡️ **Fail2Ban DDoS Mitigation**: Packaged with Alpine Nginx and active Fail2Ban jail monitoring HTTP flood attacks.
+- 📜 **Detailed Console Logs**: Request interceptor logs HTTP method, URL, and headers for transparent demonstration and verification.
+- 🔒 **Navigation Guards**: Route protection (`/dashboard`, `/pokemons/create`) that redirects unauthenticated visitors to `/login`.
+- ⚡ **Dynamic Dashboard**: Interactive Pokémon catalog with type filters, live search, and visual base stats.
+- ➕ **Pokémon Registration**: Interactive form featuring one-click quick presets, dynamic stat sliders, and real-time sprite preview.
 
-## Requisitos
+## Requirements
 
-- Node.js 18+ y npm
+- Node.js 18+ and npm, or Docker
 
-## Instalación y Ejecución
+## Setup and Local Execution
 
-1. Instalar dependencias:
+1. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Iniciar servidor de desarrollo Vite:
+2. Start the Vite development server:
    ```bash
    npm run dev
    ```
 
-3. Abrir en el navegador:
+3. Open in browser:
    `http://localhost:5173`
 
-## Demostración en Video
+## Docker Execution
 
-1. Abrir la consola de desarrollador del navegador (`F12` -> pestaña **Console** o pestaña **Network**).
-2. Iniciar sesión con un usuario de LDAP (ej. `alice` / `alice123` o `bob` / `bob123`).
-3. Observar cómo se recibe el JWT y se guarda en el store de Pinia.
-4. En el Dashboard, observar el `GET /api/pokemons` y cómo en la consola se imprime el `Authorization: Bearer <token>`.
-5. Ir a "+ Nuevo Pokémon", registrar uno nuevo y enviarlo.
-6. Observar el `POST /api/pokemons` con el token Bearer y cómo el nuevo Pokémon aparece de inmediato en el listado del Dashboard.
+```bash
+docker build -t pokemon-frontend .
+docker run --cap-add=NET_ADMIN --cap-add=NET_RAW -p 80:80 pokemon-frontend
+```
+
+## Demonstration Flow
+
+1. Open the browser developer console (`F12` -> **Console** or **Network** tab).
+2. Sign in using an LDAP account (e.g. `alice` / `alice123` or `bob` / `bob123`).
+3. Observe the authentication response containing the JWT and how Pinia stores the session.
+4. On the Dashboard, verify the `GET /api/pokemons` request and inspect the injected Bearer Token.
+5. Navigate to "+ New Pokémon", fill in or select a preset, and submit.
+6. Verify the `POST /api/pokemons` request with the Bearer token and confirm the new entry appears in the catalog.

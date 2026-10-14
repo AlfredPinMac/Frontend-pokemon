@@ -44,7 +44,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
             </svg>
-            <span>Nuevo Pokémon</span>
+            <span>New Pokémon</span>
           </router-link>
 
           <!-- User Info & Logout -->
@@ -63,7 +63,7 @@
             <!-- Token Inspect Button -->
             <button
               @click="showTokenModal = true"
-              title="Inspeccionar JWT Token actual"
+              title="Inspect active JWT Token"
               class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-amber-500/30 text-xs font-mono flex items-center gap-1.5 transition-colors shadow-sm"
             >
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,12 +76,12 @@
             <button
               @click="handleLogout"
               class="p-2 rounded-lg bg-slate-800/80 hover:bg-red-500/20 text-slate-400 hover:text-red-400 border border-slate-700 hover:border-red-500/40 transition-all text-xs font-medium flex items-center gap-1"
-              title="Cerrar sesión"
+              title="Sign Out"
             >
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
               </svg>
-              <span class="hidden sm:inline">Salir</span>
+              <span class="hidden sm:inline">Logout</span>
             </button>
           </div>
         </nav>
@@ -105,15 +105,15 @@
                 </svg>
               </span>
               <div>
-                <h3 class="text-base font-bold text-slate-100">JWT Token Activo en Pinia</h3>
-                <p class="text-xs text-slate-400">Inyectado en cada request mediante el interceptor de Axios</p>
+                <h3 class="text-base font-bold text-slate-100">Active JWT Token in Pinia</h3>
+                <p class="text-xs text-slate-400">Injected on every request via Axios interceptor</p>
               </div>
             </div>
             <button 
               type="button"
               @click="showTokenModal = false" 
               class="text-slate-400 hover:text-slate-100 p-2 rounded-lg hover:bg-slate-800 transition-colors"
-              title="Cerrar modal"
+              title="Close modal"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -125,7 +125,7 @@
           <div class="mt-4 space-y-4">
             <div>
               <label class="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1 font-mono">
-                Encabezado HTTP Authorization
+                HTTP Authorization Header
               </label>
               <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs font-mono text-emerald-400 break-all select-all">
                 Authorization: Bearer {{ authStore.token }}
@@ -147,7 +147,7 @@
             <!-- Modal Footer -->
             <div class="flex items-center justify-between pt-3 border-t border-slate-800/80">
               <span class="text-xs text-slate-400 font-mono">
-                Usuario activo: <strong class="text-slate-200 capitalize">{{ authStore.username }}</strong>
+                Active user: <strong class="text-slate-200 capitalize">{{ authStore.username }}</strong>
               </span>
 
               <div class="flex items-center gap-2">
@@ -156,8 +156,8 @@
                   @click="copyToken"
                   class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-1.5 transition-colors border border-slate-700"
                 >
-                  <span v-if="copied" class="text-emerald-400 font-bold">✓ Copiado</span>
-                  <span v-else>Copiar Token</span>
+                  <span v-if="copied" class="text-emerald-400 font-bold">✓ Copied</span>
+                  <span v-else>Copy Token</span>
                 </button>
 
                 <button
@@ -165,7 +165,7 @@
                   @click="showTokenModal = false"
                   class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold transition-colors shadow-sm"
                 >
-                  Cerrar
+                  Close
                 </button>
               </div>
             </div>
