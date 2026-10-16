@@ -1,0 +1,11 @@
+[http-missing-security-headers:cross-origin-opener-policy] [http] [info] http://127.0.0.1:5173
+[http-missing-security-headers:cross-origin-resource-policy] [http] [info] http://127.0.0.1:5173
+[http-missing-security-headers:strict-transport-security] [http] [info] http://127.0.0.1:5173
+[http-missing-security-headers:content-security-policy] [http] [info] http://127.0.0.1:5173
+[http-missing-security-headers:x-content-type-options] [http] [info] http://127.0.0.1:5173
+[http-missing-security-headers:x-permitted-cross-domain-policies] [http] [info] http://127.0.0.1:5173
+[http-missing-security-headers:cross-origin-embedder-policy] [http] [info] http://127.0.0.1:5173
+[http-missing-security-headers:permissions-policy] [http] [info] http://127.0.0.1:5173
+[http-missing-security-headers:x-frame-options] [http] [info] http://127.0.0.1:5173
+[http-missing-security-headers:referrer-policy] [http] [info] http://127.0.0.1:5173
+[missing-sri] [http] [info] http://127.0.0.1:5173/ ["https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"]
